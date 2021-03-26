@@ -11,7 +11,7 @@ def stretching(img):
         # print('Min_channel',Min_channel)
         for i in range(height):
             for j in range(width):
-                img[i,j,k] = (img[i,j,k] - Min_channel) * (255 - 0) / (Max_channel - Min_channel)+ 0
+                img[i,j,k] = (img[i,j,k] - Min_channel) * (255 - Min_channel) / (Max_channel - Min_channel)+ 0
     return img
 
 

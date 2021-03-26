@@ -10,7 +10,7 @@ clc;
 %%% Underwater White Balance %%%
 
 %% Load the image and split channels. 
-rgbImage=double(imread('../test13.png'))/255;
+rgbImage=double(imread('../Valentine2.png'))/255;
 %%
 % 
 %   for x = 1:10

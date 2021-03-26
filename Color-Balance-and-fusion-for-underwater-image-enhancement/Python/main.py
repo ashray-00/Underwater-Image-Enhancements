@@ -111,7 +111,7 @@ def gaussian_pyramid(img, level):
     
 
 def main():
-    rgbImage = (cv2.imread('../test13.jpg'))
+    rgbImage = (cv2.imread('../Valentine2.png'))
     rgbImage = (cv2.cvtColor(rgbImage, cv2.COLOR_BGR2RGB)/255.0)
     rgbImage = img_as_float32(rgbImage)
     greyImage = color.rgb2gray(rgbImage)
