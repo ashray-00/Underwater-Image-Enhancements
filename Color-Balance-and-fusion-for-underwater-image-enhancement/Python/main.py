@@ -91,7 +91,7 @@ def laplacian_pyramid(img, level):
         temp_img = temp_img[0::2,0::2]
         out[i] = temp_img
     
-    for i in range(level - 2):
+    for i in range(level - 1):
         m, n = out[i].shape
         out[i] = out[i] - np.resize(out[i+1], (m,n))
     
@@ -154,7 +154,7 @@ def main():
     Iwb = wb.balanceWhite(I)
     Iwb = img_as_float32(Iwb)
 
-    Igamma = exposure.adjust_gamma(Iwb, 0.8, 1.2)
+    Igamma = exposure.adjust_gamma(Iwb, 1, 1)
     Igamma /= np.max(Igamma)
 
     sigma = 20
@@ -164,7 +164,7 @@ def main():
         Igauss = gaussian_filter(Igauss, sigma)
         Igauss = np.minimum(Iwb, Igauss)
     
-    gain = 0.8
+    gain = 1
     Norm = (Iwb - gain * Igauss)
     for i in range(3):
         Norm[:,:,i] = exposure.equalize_hist(Norm[:,:,i])
