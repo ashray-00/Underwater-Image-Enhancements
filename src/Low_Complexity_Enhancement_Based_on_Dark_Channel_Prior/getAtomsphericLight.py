@@ -22,8 +22,6 @@ def getAtomsphericLight(darkChannel, img, meanMode, percent):
     nodes = sorted(nodes, key=lambda node: node.value, reverse=True)
     atomsphericLight = 0
 
-    # 获取暗通道前0.1%(percent)的位置的像素点在原图像中的最高亮度值
-
     for i in range(0, int(percent*size)):
         SumImg = sum(img[nodes[i].x, nodes[i].y,:])
         if SumImg > atomsphericLight:

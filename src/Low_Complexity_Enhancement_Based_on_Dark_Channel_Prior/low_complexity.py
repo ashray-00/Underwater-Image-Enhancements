@@ -12,19 +12,13 @@ from Low_Complexity_Enhancement_Based_on_Dark_Channel_Prior.getRGBDarkChannel im
 from Low_Complexity_Enhancement_Based_on_Dark_Channel_Prior.getSceneRadiance import SceneRadiance
 
 
-
-
-
-######################## Based on the DCP and the 0.1% brightest point is incorrect ########################
-######################## Based on the DCP and the 0.1% brightest point is incorrect ########################
-######################## Based on the DCP and the 0.1% brightest point is incorrect  and further cause the distortion of the restored images ########################
 from Low_Complexity_Enhancement_Based_on_Dark_Channel_Prior.getTransmissionEstimation import getTransmissionMap
 
 def low_complexity(img):
     np.seterr(over='ignore')
     blockSize = 9
     imgGray = getDarkChannel(img, blockSize)
-    AtomsphericLight = getAtomsphericLight(imgGray, img, meanMode=True, percent=0.001)
+    AtomsphericLight = getAtomsphericLight(imgGray, img, meanMode=True, percent=0.1)
 
     transmission = getTransmissionMap(img, AtomsphericLight, blockSize)
     sceneRadiance = SceneRadiance(img, AtomsphericLight, transmission)

@@ -5,28 +5,41 @@ import natsort
 import csv
 import numpy as np
 
-def calculate_UCIQE(image, c1=0.4680, c2=0.2745, c3=0.2576):
-    rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-    lab = cv2.cvtColor(rgb, cv2.COLOR_RGB2LAB)
-    # lab = color.rgb2lab(rgb)
-    l = lab[:,:,0]/255
-    a = lab[:,:,1]/255
-    b = lab[:,:,2]/255
+def calc_uciqe(img_bgr):
+    img_lab = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2LAB)  # Transform to Lab color space
 
-    chroma = np.sqrt(np.square(a) + np.square(b))
+                                     # According to training result mentioned in the paper:
+    coe_metric = [0.4680, 0.2745, 0.2576]      # Obtained coefficients are: c1=0.4680, c2=0.2745, c3=0.2576.
+    img_lum = img_lab[..., 0]/255
+    img_a = img_lab[..., 1]/255
+    img_b = img_lab[..., 2]/255
 
-    u_c = np.mean(chroma)
+    img_chr = np.sqrt(np.square(img_a)+np.square(img_b))              # Chroma
 
-    sigma_c = np.sqrt(np.mean(np.abs(1 - np.square(u_c/chroma))))
+    img_sat = img_chr/np.sqrt(np.square(img_chr)+np.square(img_lum))  # Saturation
+    aver_sat = np.mean(img_sat)                                       # Average of saturation
 
-    saturation = chroma / np.sqrt(np.square(chroma) + np.square(l))
+    aver_chr = np.mean(img_chr)                                       # Average of Chroma
 
-    u_s = np.mean(saturation)
+    var_chr = np.sqrt(np.mean(abs(1-np.square(aver_chr/img_chr))))    # Variance of Chroma
 
-    contrast_l = np.max(l) - np.min(l)
+    dtype = img_lum.dtype                                             # Determine the type of img_lum
+    if dtype == 'uint8':
+        nbins = 256
+    else:
+        nbins = 65536
 
-    UCIQE = c1 * sigma_c + c2 * contrast_l + c3 * u_s
-    return UCIQE
+    hist, bins = np.histogram(img_lum, nbins)                        # Contrast of luminance
+    cdf = np.cumsum(hist)/np.sum(hist)
+
+    ilow = np.where(cdf > 0.0100)
+    ihigh = np.where(cdf >= 0.9900)
+    tol = [(ilow[0][0]-1)/(nbins-1), (ihigh[0][0]-1)/(nbins-1)]
+    con_lum = tol[1]-tol[0]
+
+    quality_val = coe_metric[0]*var_chr+coe_metric[1]*con_lum + coe_metric[2]*aver_sat         # get final quality value
+    # print("quality_val is", quality_val)
+    return quality_val
 
 def main():
     file_path = "./OutputImages/"
@@ -53,7 +66,7 @@ def main():
             if (i == 0):
                 UCIQUE[j][i] = str(file)
             image = cv2.imread(path + file)
-            uciqe = calculate_UCIQE(image)
+            uciqe = calc_uciqe(image)
             UCIQUE[j][i+1] = uciqe
         flag1 = True
     with open(output_path + 'UCIQUE.csv', mode='w') as csv_file:

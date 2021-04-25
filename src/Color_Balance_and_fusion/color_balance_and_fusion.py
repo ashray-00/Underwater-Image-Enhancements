@@ -59,7 +59,7 @@ def saliency_detection(image):
 
     # Compute the saliency map
 
-    sm = np.square(l - lm) + np.square(a - am) + np.square(b - bm)
+    sm = np.sqrt(np.square(l - lm) + np.square(a - am) + np.square(b - bm))
 
     # Normalise saliency map
 
@@ -185,7 +185,7 @@ def color_balance_and_fusion(input_img):
     img1 = Isharp
     img2 = Igamma
 
-    level = 10
+    level = 15
 
     Weight1 = gaussian_pyramid(W1, level)
     Weight2 = gaussian_pyramid(W2, level)
@@ -220,6 +220,7 @@ def color_balance_and_fusion(input_img):
 def main():
     input_img = cv2.imread(sys.argv[1])
     output = color_balance_and_fusion(input_img)
+    cv2.imwrite("a3.png", output)
 
 if __name__ == "__main__":
     main()
