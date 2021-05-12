@@ -10,6 +10,7 @@ from Integrated_Color_Model.sceneRadiance import sceneRadianceRGB
 
 def integrated_color_model(img):
     np.seterr(over='ignore')
+    
     img = stretching(img)
     sceneRadiance = sceneRadianceRGB(img)
     sceneRadiance = HSVStretching(sceneRadiance)

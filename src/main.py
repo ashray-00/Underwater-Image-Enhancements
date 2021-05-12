@@ -19,10 +19,14 @@ def main():
         prefix = file.split('.')[0]
         if os.path.isfile(file_path):
             print("****** file ******", file)
-            img = cv2.imread(file_path)
+            inp = cv2.imread(file_path)
+            img = inp
             output1 = color_balance_and_fusion(img)
+            img = inp
             output2 = Blue_green_channels_dehazing_and_red_channel_correction(img)
+            img = inp
             output3 = low_complexity(img)
+            img = inp
             output4 = integrated_color_model(img)
             cv2.imwrite(output_path + "Color_Balance_and_fusion/" + prefix + ".png", output1)
             cv2.imwrite(output_path + "Blue_green_channels_dehazing_and_red_channel_correction/" + prefix + ".png", output2)

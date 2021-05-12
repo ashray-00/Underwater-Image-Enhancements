@@ -128,7 +128,7 @@ def color_balance_and_fusion(input_img):
     alpha = 1
     Irc = Ir + alpha * (Ig_mean - Ir_mean) * (1 - Ir) * Ig
     
-    alpha = 1
+    alpha = 0
     Ibc = Ib + alpha * (Ig_mean - Ib_mean) * (1 - Ib) * Ig
 
     I = np.dstack((Irc, Ig, Ibc))

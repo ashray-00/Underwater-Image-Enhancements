@@ -13,7 +13,6 @@ from Blue_green_channels_dehazing_and_red_channel_correction.refinedTransmission
 from Blue_green_channels_dehazing_and_red_channel_correction.sceneRadianceGb import sceneRadianceGB
 from Blue_green_channels_dehazing_and_red_channel_correction.sceneRadianceR import sceneradiance
 
-# # # # # # # # # # # # # # # # # # # # # # Normalized implement is necessary part as the fore-processing   # # # # # # # # # # # # # # # #
 
 def Blue_green_channels_dehazing_and_red_channel_correction(img):
     np.seterr(over='ignore')
@@ -30,7 +29,7 @@ def Blue_green_channels_dehazing_and_red_channel_correction(img):
 
     sceneRadiance = sceneradiance(img, sceneRadiance_GB)
 
-    S_x = AdaptiveExposureMap(img, sceneRadiance, Lambda=0.5, blockSize=blockSize)
+    S_x = AdaptiveExposureMap(img, sceneRadiance, Lambda=0.3, blockSize=blockSize)
         
     sceneRadiance = AdaptiveSceneRadiance(sceneRadiance, S_x)
 

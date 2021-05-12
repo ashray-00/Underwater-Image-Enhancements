@@ -18,7 +18,7 @@ def low_complexity(img):
     np.seterr(over='ignore')
     blockSize = 9
     imgGray = getDarkChannel(img, blockSize)
-    AtomsphericLight = getAtomsphericLight(imgGray, img, meanMode=True, percent=0.1)
+    AtomsphericLight = getAtomsphericLight(imgGray, img, meanMode=True, percent=0.01)
 
     transmission = getTransmissionMap(img, AtomsphericLight, blockSize)
     sceneRadiance = SceneRadiance(img, AtomsphericLight, transmission)

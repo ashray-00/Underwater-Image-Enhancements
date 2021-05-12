@@ -27,18 +27,6 @@ class GuidedFilter:
 
         Ir, Ig, Ib = I[:, :, 0], I[:, :, 1], I[:, :, 2]
 
-        # self._Ir_mean = cv2.blur(Ir, (r, r))
-        # self._Ig_mean = cv2.blur(Ig, (r, r))
-        # self._Ib_mean = cv2.blur(Ib, (r, r))
-        #
-        # Irr_var = cv2.blur(Ir ** 2, (r, r)) - self._Ir_mean ** 2 + eps
-        # Irg_var = cv2.blur(Ir * Ig, (r, r)) - self._Ir_mean * self._Ig_mean
-        # Irb_var = cv2.blur(Ir * Ib, (r, r)) - self._Ir_mean * self._Ib_mean
-        # Igg_var = cv2.blur(Ig * Ig, (r, r)) - self._Ig_mean * self._Ig_mean + eps
-        # Igb_var = cv2.blur(Ig * Ib, (r, r)) - self._Ig_mean * self._Ib_mean
-        # Ibb_var = cv2.blur(Ib * Ib, (r, r)) - self._Ib_mean * self._Ib_mean + eps
-
-
         self._Ir_mean = cv2.blur(Ir, (r, r))
         self._Ig_mean = cv2.blur(Ig, (r, r))
         self._Ib_mean = cv2.blur(Ib, (r, r))

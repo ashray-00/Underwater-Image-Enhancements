@@ -1,0 +1,11 @@
+opencv-python
+numpy
+scipy
+matplotlib
+scikit-image
+natsort
+pandas
+datetime
+Pillow
+xlwt
+csv

@@ -17,11 +17,11 @@ def getDarkChannel(img, blockSize):
     addSize = int((blockSize - 1) / 2)
     newHeight = img.shape[0] + blockSize - 1
     newWidth = img.shape[1] + blockSize - 1
-    # 中间结果
+
     imgMiddle = np.zeros((newHeight, newWidth))
     imgMiddle[:, :] = 255
     imgMiddle[addSize:newHeight - addSize, addSize:newWidth - addSize] = img
-    # print('imgMiddle',imgMiddle)
+
     imgDark = np.zeros((img.shape[0], img.shape[1]), np.uint8)
     localMin = 255
     for i in range(addSize, newHeight - addSize):

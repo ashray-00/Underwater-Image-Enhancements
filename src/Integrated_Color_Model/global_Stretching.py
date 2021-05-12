@@ -6,10 +6,6 @@ def global_stretching(img_L,height, width):
     I_mean = np.mean(img_L)
 
 
-    # print('I_min',I_min)
-    # print('I_max',I_max)
-    # print('I_max',I_mean)
-
     array_Global_histogram_stretching_L = np.zeros((height, width))
     for i in range(0, height):
         for j in range(0, width):

@@ -7,8 +7,6 @@ def stretching(img):
     for k in range(0, 3):
         Max_channel  = np.max(img[:,:,k])
         Min_channel  = np.min(img[:,:,k])
-        # print('Max_channel',Max_channel)
-        # print('Min_channel',Min_channel)
         for i in range(height):
             for j in range(width):
                 img[i,j,k] = (img[i,j,k] - Min_channel) * (255 - Min_channel) / (Max_channel - Min_channel)+ 0

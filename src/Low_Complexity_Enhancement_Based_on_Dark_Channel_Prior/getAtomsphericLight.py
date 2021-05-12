@@ -1,6 +1,5 @@
 import numpy as np
 
-# 用于排序时存储原来像素点位置的数据结构
 class Node(object):
 	def __init__(self,x,y,value):
 		self.x = x
@@ -27,6 +26,6 @@ def getAtomsphericLight(darkChannel, img, meanMode, percent):
         if SumImg > atomsphericLight:
             atomsphericLight = SumImg
             AtomsphericLight = img[nodes[i].x, nodes[i].y, :]
-            # print('nodes[i].x, nodes[i].y,SumImg',SumImg,nodes[i].x, nodes[i].y,img[nodes[i].x, nodes[i].y, :])
+            
     return AtomsphericLight
 
